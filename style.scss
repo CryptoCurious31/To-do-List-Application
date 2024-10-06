@@ -1,0 +1,96 @@
+*{
+    box-sizing: border-box;
+    margin: 20px;
+
+    body {
+        background-color: #b697d3;
+        max-width: 100%;
+        width: 70%;
+        margin: 0 auto;
+    }
+}
+
+.grid-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #fffdfd;
+    border-radius: 20px;
+}
+
+.grid-container > #heading {
+    color: #000000;
+    text-transform: capitalize;
+    font-family: "Poppins";
+    border-bottom: 3px solid #000000;
+    padding: 10px;
+    margin-top: 30px;
+    font-size: 45px;
+    line-height: 1.3em;
+}
+
+.grid-container #inputTask {
+    padding: 12px 10px;
+    max-width: 80%;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    font-family: "Poppins";
+    background-color: rgba(0,0,0, 0.25);
+    margin: 0 auto;
+    display: block;
+    transition: 0.5s all ease;
+}
+
+#inputTask::placeholder {
+    color: #000;
+}
+
+#inputTask:hover {
+    transform: scale(1.2);
+}
+
+#inputTask:focus {
+    box-shadow: 5px 5px 10px 0.1px rgba(0,0,0, 0.25);
+}
+
+#inputTask:active {
+    border: none;
+}
+
+.grid-container #addTask {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 2);
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: 600;
+}
+
+.delete {
+    padding: 5px 10px;
+    border: 2px solid #000;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 2);
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: 600;
+}
+
+ul {
+    margin-top: 40px;
+}
+
+li{
+    list-style-type: decimal-leading-zero;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Poppins";
+}
+
+.completed {
+     text-decoration: line-through;
+}
