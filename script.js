@@ -1,80 +1,82 @@
-const inputTask = document.getElementById('inputTask');
-const addTask = document.getElementById('addTask');
-const taskList = document.getElementById('taskList');
+// script.js
+
+let todos = [];
+
+const todoList = document.getElementById('todo-list');
+const addBtn = document.getElementById('add-btn');
+const titleInput = document.getElementById('title');
+const descriptionInput = document.getElementById('description');
+const deuDateInput = document.getElementById('dueDate');
 
 
-function addDailyTask() {
-    const textInput = inputTask.value.trim();
-
-    if (textInput === "") {
-        alert("Please Enter Your Task")
-        return;
-    }
 
 
-    const tasks = document.createElement('li');
-    tasks.textContent = textInput;
+// renderSongs function which is used 
+// to render every to do list item when 
+// ever your add a item
 
+const renderTodoList = () => {
+    todoList.innerHTML = '';
 
-    tasks.addEventListener('click', () => {
-        tasks.classList.toggle('completed')
+    todos.forEach((todo, index) => {
+        const todoItem = document.createElement('li');
+        todoItem.classList.add('todo-item');
+        todoItem.innerHTML = `
+            <span>${todo.title}</span> 
+            <span>${todo.description}</span> 
+            <span>${todo.dueDate}</span>
+            <button class="edit-btn" data-index="${index}">Edit</button> 
+            <button class="delete-btn" data-index="${index}">Delete</button> 
+        `;
+        todoList.appendChild(todoItem);
     });
-
-
-    // create a delete button for deleting task
-
-    const deleteTask = document.createElement('button');
-    deleteTask.textContent = 'X';
-    deleteTask.classList.add('delete');
-
-    deleteTask.addEventListener('click' , () => {
-        taskList.removeChild(tasks);
-    })
-
-    const updateTask = document.createElement('button');
-    updateTask.textContent = 'edit';
-    updateTask.classList.add('updateTaskInList');
-
-    updateTask.addEventListener('click', () => {
-        const editTask = document.createElement('input');
-        editTask.type = 'text';
-        editTask.value = tasks.textContent;
-
-
-        const saveButton = document.createElement('button');
-        saveButton.textContent = 'save';
-
-
-        tasks.replaceChild(editTask, tasks);
-        tasks.replaceChild(saveButton, updateTask);
-
-        
-        saveButton.addEventListener('click', () => {
-          tasks.textContent = editTask.value;
-          tasks.replaceChild(tasks, editTask)      
-          tasks.replaceChild(updateTask, saveButton);      
-        })
-    })
-
-
-
-
-    // append the childrens according to needs
-    tasks.appendChild(deleteTask);
-    taskList.appendChild(tasks);
-    taskList.appendChild(updateTask);
-
-
-    textInput.value = '';
-
 }
 
 
-addTask.addEventListener('click', addDailyTask);
+// add to do item in the list
+const addTodo = () => {
+    const title = titleInput.value;
+    const description = descriptionInput.value;
+    const dueDate = deuDateInput.value;
+    newTodo = {title, description, dueDate};
+    todos.push(newTodo)
+    renderTodoList();
+    titleInput.value = '';
+    descriptionInput.value = '';
+    deuDateInput.value = '';
+}
 
 
-inputTask.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        addDailyTask()
+// edit to do list function 
+ const editTodo = (index) => {
+    const todo = todos[index];
+    const title = prompt('Enter your new Title', todo.title);
+    const description = prompt('Enter your new Deacription', todo.description);
+    const  dueDate = prompt('Enter new due Date', todo.dueDate);
+    todo.title = title;
+    todo.description = description;
+    todo.dueDate = dueDate;
+    renderTodoList();
+ }
+
+
+//  delete function 
+const deleteTodo = (index) => {
+    todos.splice(index, 1);
+    renderTodoList();
+};
+
+
+// calling events to the buttons
+addBtn.addEventListener('click', addTodo);
+todoList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('edit-btn')) {
+        const index = event.target.dataset.index;
+        editTodo(index);
+    } else if (event.target.classList.contains('delete-btn')) {
+        const index = event.target.dataset.index;
+        deleteTodo(index);
     }
 })
+
+renderTodoList();
